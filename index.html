@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्मार्ट यूटिलिटी टूल्स - कमाई वाली वेबसाइट</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f2f5; color: #333; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { color: #007bff; font-size: 28px; margin-bottom: 5px; }
+        header p { color: #666; font-size: 14px; }
+        .container { width: 100%; max-width: 500px; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .card h2 { font-size: 18px; margin-bottom: 15px; color: #444; border-bottom: 2px solid #f0f2f5; padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .input-group { margin-bottom: 12px; }
+        .input-group label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; font-weight: 600; }
+        .input-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: bold; cursor: pointer; transition: background 0.2s; margin-top: 5px; }
+        button:hover { background: #0056b3; }
+        .result { margin-top: 15px; padding: 12px; background: #e9ecef; border-radius: 6px; font-size: 14px; text-align: center; font-weight: bold; }
+        .qr-output { display: flex; flex-direction: column; align-items: center; margin-top: 15px; }
+        .qr-output img { max-width: 150px; margin-top: 10px; }
+        .ad-space { width: 100%; text-align: center; padding: 10px; background: #fff3cd; border: 1px dashed #ffeba2; color: #856404; font-size: 12px; border-radius: 6px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>⚙️ स्मार्ट टूल्स हब</h1>
+    <p>आपके रोज़ाना काम आने वाले ज़रूरी टूल्स</p>
+</header>
+
+<div class="container">
+
+    <!-- TOOL 1: EMI CALCULATOR -->
+    <div class="card">
+        <h2>📊 लोन EMI कैलकुलेटर</h2>
+        <div class="input-group">
+            <label>लोन की राशि (₹)</label>
+            <input type="number" id="loanAmount" value="100000">
+        </div>
+        <div class="input-group">
+            <label>ब्याज दर (% सालाना)</label>
+            <input type="number" id="loanRate" value="10" step="0.1">
+        </div>
+        <div class="input-group">
+            <label>अवधि (महीनों में)</label>
+            <input type="number" id="loanMonths" value="12">
+        </div>
+        <button onclick="calculateEMI()">हर महीने की किस्त (EMI) निकालें</button>
+        <div class="result" id="emiResult">आपकी EMI यहाँ दिखेगी</div>
+        <div class="ad-space">Google Ads यहाँ दिखेंगे (कमाई की जगह)</div>
+    </div>
+
+    <!-- TOOL 2: QR CODE GENERATOR -->
+    <div class="card">
+        <h2>🔎 फ्री QR कोड जनरेटर</h2>
+        <div class="input-group">
+            <label>अपना नाम, नंबर या वेबसाइट लिंक डालें</label>
+            <input type="text" id="qrText" placeholder="यहाँ कुछ भी टाइप करें...">
+        </div>
+        <button onclick="generateQR()">QR कोड बनाएं</button>
+        <div class="qr-output" id="qrResult">
+            <span id="qrPlaceholder" style="color:#666; font-size:14px;">आपका QR कोड यहाँ दिखेगी</span>
+        </div>
+        <div class="ad-space">Google Ads यहाँ दिखेंगे (कमाई की जगह)</div>
+    </div>
+
+</div>
+
+<script>
+    // EMI कैलकुलेटर का लॉजिक
+    function calculateEMI() {
+        const p = parseFloat(document.getElementById('loanAmount').value);
+        const r = parseFloat(document.getElementById('loanRate').value) / 12 / 100;
+        const n = parseFloat(document.getElementById('loanMonths').value);
+        
+        if (p && r && n) {
+            const emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+            document.getElementById('emiResult').innerHTML = `हर महीने की किस्त: ₹${emi.toFixed(0)}`;
+        } else {
+            document.getElementById('emiResult').innerHTML = "कृपया सभी बॉक्स सही भरें";
+        }
+    }
+
+    // QR कोड जनरेटर का लॉजिक (बिना किसी चाबी के मुफ़्त API)
+    function generateQR() {
+        const text = document.getElementById('qrText').value.trim();
+        const resultDiv = document.getElementById('qrResult');
+        
+        if (text) {
+            resultDiv.innerHTML = `
+                <span style="color:green;">✔ आपका QR कोड तैयार है!</span>
+                <img src="https://qrserver.com{encodeURIComponent(text)}" alt="QR Code">
+            `;
+        } else {
+            resultDiv.innerHTML = `<span style="color:red;">कृपया पहले कुछ टाइप करें</span>`;
+        }
+    }
+</script>
+
+</body>
+</html>
