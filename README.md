@@ -34,7 +34,11 @@ Built with an ultra-premium, low-contrast dark palette designed to reduce ocular
 
 ### 🔄 9. Hyper-Sync Offline Caching
 Features advanced local database synchronization. Once the app syncs, all core GK modules and saved notes are fully accessible without internet connectivity, ensuring uninterrupted learning anywhere.
-
+## 🛠️ Tech Stack & Architecture (टेक्नोलॉजी)
+* **Frontend:** HTML5, CSS3, Tailwind CSS (For Ultra-Smooth Aesthetic UI)
+* **Backend:** Node.js / Express (For Fast API Responses)
+* **Database:** MongoDB / Firebase (For Real-Time Global Percentile & Sync)
+* **AI Integration:** OpenAI API / Custom NLP Model (For AI Doubt Solver)
 ### 🏆 10. Olympiad & NTSE Elite Edge Mode
 A dedicated, high-tier section inside the app that completely bypasses rote memorization. It focuses entirely on logical reasoning, analytical skills, and advanced general awareness required for prestige scholarships.
 
