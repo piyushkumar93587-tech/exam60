@@ -1,0 +1,64 @@
+ric ➔
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 5. बैकएंड लॉजिक स्क्रिप्ट -->
+    <script>
+        const bsebData = [
+            {
+                q: "बिहार राज्य में ऐतिहासिक रज्जू मार्ग (Ropeway) कहाँ अवस्थित है?",
+                opts: ["बिहारशरीफ", "राजगीर", "पवित्र गया जी", "बांका जनपद"],
+                correctIndex: 1
+            },
+            {
+                q: "'नेपोलियन संहिता' (Napoleonic Code) किस वर्ष लागू की गई थी?",
+                opts: ["वर्ष 1789 में", "वर्ष 1791 में", "वर्ष 1801 में", "वर्ष 1804 में"],
+                correctIndex: 3
+            },
+            {
+                q: "कार्ल मार्क्स का ऐतिहासिक जन्म किस देश में हुआ था?",
+                opts: ["इंग्लैंड", "जर्मनी साम्राज्य", "इटली", "रूसी साम्राज्य"],
+                correctIndex: 1
+            }
+        ];
+
+        let internalPointer = 0;
+        let dynamicScore = 0;
+        let countdown = 20;
+        let activeClock;
+
+        function initializeSystem() {
+            clearInterval(activeClock);
+            countdown = 20;
+            document.getElementById("timer-display").innerText = countdown;
+            document.getElementById("forward-trigger").classList.add("hidden");
+
+            const currentPayload = bsebData[internalPointer];
+            document.getElementById("q-counter").innerText = `BSEB COGNITIVE CORE / 0${internalPointer + 1}`;
+            document.getElementById("target-question").innerText = currentPayload.q;
+
+            const grid = document.getElementById("response-options");
+            grid.innerHTML = "";
+
+            currentPayload.opts.forEach((optText, index) => {
+                const node = document.createElement("button");
+                node.className = "w-full text-left p-4 rounded-xl border border-slate-800/80 bg-slate-900/30 hover:bg-slate-800/40 hover:border-slate-700 font-semibold text-slate-300 transition duration-150 text-sm md:text-base block tracking-wide";
+                node.innerText = optText;
+                node.onclick = () => evaluationSequence(index, node);
+                grid.appendChild(node);
+            });
+
+            activeClock = setInterval(() => {
+                countdown--;
+                document.getElementById("timer-display").innerText = countdown;
+                if(countdown <= 0) {
+                    clearInterval(activeClock);
+                    freezeInteractions();
+                    exposeSolution();
+                }
+            }, 1000);
+        }
+        
