@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam60 - 6 Option GK Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 20px; text-align: center; }
+        .quiz-container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .question { font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #333; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn { padding: 15px; font-size: 16px; border: 2px solid #007bff; border-radius: 5px; background: white; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #007bff; color: white; }
+        .correct { background: #28a745 !important; color: white; border-color: #28a745; }
+        .wrong { background: #dc3545 !important; color: white; border-color: #dc3545; }
+        .score { font-size: 18px; margin-top: 20px; font-weight: bold; color: #28a745; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>Exam60 GK Quiz</h2>
+    <div id="question" class="question">प्रश्न यहाँ दिखेगा</div>
+    <div class="options-grid" id="options-parent">
+        <button class="btn" onclick="checkAnswer(0)" id="opt0">A</button>
+        <button class="btn" onclick="checkAnswer(1)" id="opt1">B</button>
+        <button class="btn" onclick="checkAnswer(2)" id="opt2">C</button>
+        <button class="btn" onclick="checkAnswer(3)" id="opt3">D</button>
+        <button class="btn" onclick="checkAnswer(4)" id="opt4">E</button>
+        <button class="btn" onclick="checkAnswer(5)" id="opt5">F</button>
+    </div>
+    <div id="score-card" class="score"></div>
+</div>
+
+<script>
+    const quizData = [
+        { q: "भारत का राष्ट्रीय खेल कौन सा है?", entry: ["क्रिकेट", "हॉकी", "फुटबॉल", "कबड्डी", "शतरंज", "कोई नहीं"], correct: 1 },
+        { q: "उगते सूरज की भूमि किस राज्य को कहते हैं?", entry: ["असम", "नागालैंड", "अरुणाचल प्रदेश", "सिक्किम", "मेघालय", "मणिपुर"], correct: 2 },
+        { q: "किस ग्रह को लाल ग्रह कहा जाता है?", entry: ["बुध", "शुक्र", "बृहस्पति", "शनि", "मंगल", "वरुण"], correct: 4 }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+
+    function loadQuiz() {
+        if(currentQ < quizData.length) {
+            document.getElementById("question").innerText = quizData[currentQ].q;
+            for(let i=0; i<6; i++) {
+                let btn = document.getElementById("opt" + i);
+                btn.innerText = quizData[currentQ].entry[i];
+                btn.className = "btn";
+                btn.disabled = false;
+            }
+        } else {
+            document.getElementById("question").innerText = "क्विज़ पूरा हुआ!";
+            document.getElementById("options-parent").style.display = "none";
+            document.getElementById("score-card").innerText = `आपका स्कोर: ${score}/${quizData.length}`;
+        }
+    }
+
+    function checkAnswer(selected) {
+        let correctIdx = quizData[currentQ].correct;
+        for(let i=0; i<6; i++) document.getElementById("opt" + i).disabled = true;
+        
+        if(selected === correctIdx) {
+            document.getElementById("opt" + selected).classList.add("correct");
+            score++;
+        } else {
+            document.getElementById("opt" + selected).classList.add("wrong");
+            document.getElementById("opt" + correctIdx).classList.add("correct");
+        }
+        setTimeout(() => { currentQ++; loadQuiz(); }, 2000);
+    }
+
+    loadQuiz();
+</script>
+</body>
+</html>
