@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXAM60 | Premium AI Education Platform</title>
+    <!-- Google Fonts for Luxury & Professional Look -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <style>
+        :root {
+            --bg-dark: #07080d;
+            --bg-card: #111424;
+            --accent-gold: #d4af37;
+            --accent-gold-glow: rgba(212, 175, 55, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #a0aec0;
+            --gradient-luxury: linear-gradient(135deg, #1a1c2e 0%, #0d0f1d 100%);
+            --chat-bg: #16192b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- Header & Luxury Navbar --- */
+        header {
+            background: rgba(7, 8, 13, 0.85);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            background: linear-gradient(45deg, #fff, var(--accent-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+            text-shadow: 0 0 8px var(--accent-gold-glow);
+        }
+
+        /* --- Hero & Search Section --- */
+        .hero {
+            background: radial-gradient(circle at top, #1a1e36 0%, var(--bg-dark) 70%);
+            padding: 80px 20px 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px var(--accent-gold-glow);
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 17px;
+            max-width: 650px;
+            margin: 0 auto 35px;
+        }
+
+        /* Search Bar Style */
+        .search-container {
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border-radius: 50px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 16px 60px 16px 25px;
+            background: #131625;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 15px var(--accent-gold-glow);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: linear-gradient(45deg, var(--accent-gold), #f3e5ab);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50px;
+            color: #000;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Main Content Layout --- */
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        /* Subjects Grid */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-card {
+            background: var(--gradient-luxury);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 25px var(--accent-gold-glow);
+        }
+
+        .subject-icon {
+            font-size: 36px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .subject-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .subject-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Material List Blocks */
+        .materials-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .material-box {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .material-box h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item-list li {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid rgba(212, 175, 55, 0.4);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .item-list li:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-left-color: var(--accent-gold);
+            transform: translateX(5px);
+        }
+
+        .item-list li i {
+            color: var(--accent-gold);
+        }
+
+        /* --- Luxury AI Chat Interface --- */
+        .ai-chat-container {
+            background: var(--chat-bg);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            margin-top: 20px;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #1f243e 0%, #131628 100%);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .chat-bot-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--accent-gold), #fff);
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 18px;
+            box-shadow: 0 0 10px var(--accent-gold-glow);
+        }
+
+        .bot-status h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .bot-status span {
+            font-size: 12px;
+            color: #4cd137;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .chat-body {
+            height: 350px;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: #0f111e;
+        }
+
+        .msg {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+
+        .msg.bot {
+            background: #1b203a;
+            color: #fff;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .msg.user {
+            background: linear-gradient(45deg, #b8972f, var(--accent-gold));
+            color: #000;
+            font-weight: 500;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-footer {
+            padding: 15px 20px;
+            background: #131625;
+            display: flex;
+            gap: 12px;
+            
