@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIYUSH AI</title>
+    <style>
+        :root {
+            --bg-color: #0b0c10;
+            --secondary-bg: #1f2833;
+            --accent-color: #66fcf1;
+            --text-color: #c5c6c7;
+            --pure-white: #ffffff;
+            --user-msg: #45f3ff;
+            --ai-msg: #66fcf1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: var(--secondary-bg);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        header h1 {
+            color: var(--accent-color);
+            font-size: 24px;
+        }
+
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .section.active {
+            display: flex;
+        }
+
+        /* Home Section */
+        #home-section {
+            text-align: center;
+            justify-content: center;
+        }
+
+        #home-section h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--pure-white);
+        }
+
+        #home-section h2 span {
+            color: #8a2be2;
+        }
+
+        #home-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #8a2be2, #4a00e0);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        /* Chat Section */
+        #chat-section {
+            height: 100%;
+            justify-content: space-between;
+        }
+
+        .chat-box {
+            flex: 1;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            background-color: #4a00e0;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.ai {
+            background-color: #2d3748;
+            color: var(--accent-color);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 25px;
+            border: 1px solid var(--accent-color);
+            background-color: var(--secondary-bg);
+            color: white;
+            outline: none;
+        }
+
+        .input-container button {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 0 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Nav Bar */
+        nav {
+            background-color: var(--secondary-bg);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #2d3748;
+        }
+
+        .nav-item {
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            gap: 5px;
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Placeholder for other sections */
+        .placeholder-text {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PIYUSH AI</h1>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home-section" class="section active">
+            <h2>Welcome to <br><span>PIYUSH AI</span></h2>
+            <p>Your Smart AI Assistant. Experience the future of artificial intelligence with powerful chat, photo generation, and video synthesis.</p>
+            <button class="btn" onclick="navigateTo('chat-section')">Start AI Chat</button>
+        </section>
+
+        <!-- Chat Section -->
+        <section id="chat-section" class="section">
+            <div class="chat-box" id="chatBox">
+                <div class="message ai">Hello! I am PIYUSH AI. How can I help you today?</div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </section>
+
+        <!-- Other Sections Placeholder -->
+        <section id="photo-section" class="section">
+            <div class="placeholder-text">📷 Photo Generation Feature Coming Soon!</div>
+        </section>
+
+        <section id="video-section" class="section">
+            <div class="placeholder-text">🎥 Video Synthesis Feature Coming Soon!</div>
+        </section>
+
+        <section id="tools-section" class="section">
+            <div class="placeholder-text">🛠️ Advanced AI Tools Coming Soon!</div>
+        </section>
+    </main>
+
+    <nav>
+        <div class="nav-item active" onclick="navigateTo('home-section')" id="nav-home">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Home
+        </div>
+        <div class="nav-item" onclick="navigateTo('chat-section')" id="nav-chat">
+            <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            Chat
+        </div>
+        <div class="nav-item" onclick="navigateTo('photo-section')" id="nav-photo">
+            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            Photo
+        </div>
+        <div class="nav-item" onclick="navigateTo('video-section')" id="nav-video">
+            <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+            Video
+        </div>
+        <div class="nav-item" onclick="navigateTo('tools-section')" id="nav-tools">
+            <svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+            Tools
+        </div>
+    </nav>
+
+    <script>
+        // Navigation Logic
+        function navigateTo(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            if(sectionId === 'home-section') document.getElementById('nav-home').classList.add('active');
+            if(sectionId === 'chat-section') document.getElementById('nav-chat').classList.add('active');
+            if(sectionId === 'photo-section') document.getElementById('nav-photo').classList.add('active');
+            if(sectionId === 'video-section') document.getElementById('nav-video').classList.add('active');
+            if(sectionId === 'tools-section') document.getElementById('nav-tools').classList.add('active');
+        }
+
+        // Chat Logic with Gemini API
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const inputField = document.getElementById('userInput');
+            const messageText = inputField.value ? inputField.value.trim() : '';
+            const chatBox = document.getElementById('chatBox');
+
+            if (messageText !== '') {
+                // User Message Screen Par Dikhana
+                const userMsgDiv = document.createElement('div');
+                userMsgDiv.className = 'message user';
+                userMsgDiv.textContent = messageText;
+                chatBox.appendChild(userMsgDiv);
+
+                inputField.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Gemini API Configuration
