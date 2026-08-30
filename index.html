@@ -498,6 +498,7 @@ HTML
             window.scrollTo(0, 0);
         }
 // // Chat Demo Logic
+// // Chat Demo Logic
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         sendMessage();
@@ -506,11 +507,11 @@ function handleKeyPress(event) {
 
 function sendMessage() {
     const inputField = document.getElementById('userInput');
-    const messageText = inputField.value.trim();
+    const messageText = inputField.value?.trim() || '';
     const chatBox = document.getElementById('chatBox');
 
     if (messageText !== '') {
-        // Add User Message
+        // User Message Screen par dikhana
         const userMsgDiv = document.createElement('div');
         userMsgDiv.className = 'message user';
         userMsgDiv.textContent = messageText;
@@ -519,32 +520,45 @@ function sendMessage() {
         inputField.value = '';
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        // असली Gemini AI चालू करने का कोड (सही URL के साथ)
+        // API Key aur Sahi URL link
         const apiKey = "AQ.Ab8RN6KS_tIIfHcCx7Kd3AYTWOqqovP4tmBbynLRxc8zGhlZcQ"; 
         const url = `https://googleapis.com{apiKey}`;
 
+        // Loading message
         const aiMsgDiv = document.createElement('div');
         aiMsgDiv.className = 'message ai';
         aiMsgDiv.textContent = "PIYUSH AI सोच रहा है...";
         chatBox.appendChild(aiMsgDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
 
+        // AI ko message bhejna aur response lena
         fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ contents: [{ parts: [{ text: messageText }] }] })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.json();
+        })
         .then(data => {
-            const aiResponse = data.candidates[0].content.parts[0].text;
-            aiMsgDiv.textContent = aiResponse;
+            if (data && data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0]) {
+                const aiResponse = data.candidates[0].content.parts[0].text;
+                aiMsgDiv.textContent = aiResponse;
+            } else {
+                aiMsgDiv.textContent = "Error: सही डेटा नहीं मिला।";
+            }
             chatBox.scrollTop = chatBox.scrollHeight;
         })
         .catch(error => {
             console.error("Error:", error);
-            aiMsgDiv.textContent = "Error: API कनेक्ट नहीं हो पाई।";
+            aiMsgDiv.textContent = "Error: कनेक्शन में दिक्कत आ रही है।";
+            chatBox.scrollTop = chatBox.scrollHeight;
         });
-        }
+    }
+}
         // Image Upload Preview Logic
         function previewFile() {
             const preview = document.getElementById('imagePreview');
