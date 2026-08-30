@@ -1,0 +1,255 @@
+Conversation with Gemini
+Sabko milao Na Kar Dekho kar Jo likha Hai vaisa hi court taiyar karo theek hai
+
+Haan bilkul, maine aapke sabhi screenshots ko ek sath mila kar poora code taiyar kar liya hai. Jaisa screenshots mein likha tha, bilkul waisa hi code yahan diya gaya hai:
+
+HTML
+        .hero {
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 35px;
+        }
+
+        .stats {
+            grid-template-columns: repeat(2, 1fr);
+            padding: 20px;
+        }
+
+        .section {
+            padding: 45px 20px;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">EXAM<span>60</span></div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#subjects">Subjects</a>
+        <a href="#features">Features</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#progress">Progress</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="badge">🚀 Smart Learning Platform</div>
+    <h1>पढ़ो Smart, Score करो <span>60+</span></h1>
+    <p>EXAM60 एक आधुनिक study platform है जहाँ आपको मिलेंगे Notes, Important Questions, Quiz, Practice और Smart Study Tools।</p>
+    
+    <div class="buttons">
+        <button class="btn primary" onclick="startStudy()">Start Studying</button>
+        <button class="btn secondary" onclick="showMessage()">Explore Features</button>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat">
+        <h2>5+</h2>
+        <p>Subjects</p>
+    </div>
+    <div class="stat">
+        <h2>100+</h2>
+        <p>Study Topics</p>
+    </div>
+    <div class="stat">
+        <h2>500+</h2>
+        <p>Questions</p>
+    </div>
+    <div class="stat">
+        <h2>24/7</h2>
+        <p>Learning</p>
+    </div>
+</section>
+
+<section class="section" id="subjects">
+    <div class="section-title">
+        <h2>अपने Subjects चुनें</h2>
+        <p>हर विषय को आसान तरीके से पढ़ें</p>
+    </div>
+    
+    <div class="subjects">
+        <div class="card">
+            <div class="icon">🔬</div>
+            <h3>Science</h3>
+            <p>Physics, Chemistry और Biology के Important Notes और Questions।</p>
+            <button class="study-btn" onclick="openSubject('Science')">Study Now</button>
+        </div>
+        
+        <div class="card">
+            <div class="icon">📐</div>
+            <h3>Mathematics</h3>
+            <p>Formulas, Short Tricks और महत्वपूर्ण Questions की तैयारी।</p>
+            <button class="study-btn" onclick="openSubject('Mathematics')">Study Now</button>
+        </div>
+        
+        <div class="card">
+            <div class="icon">🌍</div>
+            <h3>Social Science</h3>
+            <p>History, Geography, Civics और Economics आसान भाषा में।</p>
+            <button class="study-btn" onclick="openSubject('Social Science')">Study Now</button>
+        </div>
+        
+        <div class="card">
+            <div class="icon">📖</div>
+            <h3>Hindi</h3>
+            <p>Important Questions, Grammar और Chapter Notes।</p>
+            <button class="study-btn" onclick="openSubject('Hindi')">Study Now</button>
+        </div>
+        
+        <div class="card">
+            <div class="icon">🇬🇧</div>
+            <h3>English</h3>
+            <p>Grammar, Tense, Writing और महत्वपूर्ण अभ्यास।</p>
+            <button class="study-btn" onclick="openSubject('English')">Study Now</button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="features">
+    <div class="section-title">
+        <h2>EXAM60 की खास सुविधाएँ</h2>
+        <p>Smart तरीके से तैयारी करने के लिए सब कुछ एक जगह</p>
+    </div>
+    
+    <div class="features">
+        <div class="feature">
+            <div class="icon">📝</div>
+            <h3>Smart Notes</h3>
+            <p>छोटे, आसान और परीक्षा के लिए महत्वपूर्ण नोट्स।</p>
+        </div>
+        
+        <div class="feature">
+            <div class="icon">❓</div>
+            <h3>Important Questions</h3>
+            <p>बार-बार पूछे जाने वाले महत्वपूर्ण प्रश्नों का संग्रह।</p>
+        </div>
+        
+        <div class="feature">
+            <div class="icon">🧠</div>
+            <h3>Daily Quiz</h3>
+            <p>रोज Quiz देकर अपनी तैयारी को टेस्ट करें।</p>
+        </div>
+        
+        <div class="feature">
+            <div class="icon">📊</div>
+            <h3>Progress Tracking</h3>
+            <p>अपनी पढ़ाई और तैयारी की प्रगति देखें।</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="quiz">
+    <div class="section-title">
+        <h2>आज का Quick Quiz</h2>
+        <p>अपनी जानकारी टेस्ट करें</p>
+    </div>
+    
+    <div class="quiz-box">
+        <div class="question">
+            Q. मानव शरीर में रक्त को पंप करने वाला अंग कौन सा है?
+        </div>
+        
+        <button class="option" onclick="wrongAnswer()">A. फेफड़ा</button>
+        <button class="option" onclick="correctAnswer()">B. हृदय</button>
+        <button class="option" onclick="wrongAnswer()">C. गुर्दा</button>
+        <button class="option" onclick="wrongAnswer()">D. मस्तिष्क</button>
+        
+        <p id="result" style="margin-top:20px; font-weight:bold;"></p>
+    </div>
+</section>
+
+<section class="section" id="progress">
+    <div class="section-title">
+        <h2>Study Progress</h2>
+        <p>अपनी तैयारी पर नजर रखें</p>
+    </div>
+    
+    <div class="progress-box">
+        <div class="progress-item">
+            <div class="progress-top">
+                <span>Science</span>
+                <span>75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:75%"></div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-top">
+                <span>Mathematics</span>
+                <span>60%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:60%"></div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-top">
+                <span>Social Science</span>
+                <span>80%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:80%"></div>
+            </div>
+        </div>
+        
+        <div class="progress-item">
+            <div class="progress-top">
+                <span>Hindi</span>
+                <span>70%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:70%"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <h2>EXAM<span>60</span></h2>
+    <p>Smart Study • बेहतर तैयारी • बेहतर परिणाम</p>
+    <div class="footer-bottom">
+        © 2026 EXAM60 | Made for Students 🚀
+    </div>
+</footer>
+
+<script>
+function startStudy(){
+    document.getElementById("subjects").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+function showMessage(){
+    alert("EXAM60 में Notes, Quiz, Important Questions और Progress Tracking उपलब्ध है!");
+}
+
+function openSubject(subject){
+    alert("Welcome to " + subject + " section!");
+}
+
+function correctAnswer(){
+    document.getElementById("result").innerHTML = 
+    "🎉 सही जवाब! हृदय रक्त को पूरे शरीर में पंप करता है।";
+    
+    document.getElementById("result").style.color="#00d084";
+}
+
+function wrongAnswer(){
+    document.getElementById("result").innerHTML = 
+    "❌ गलत जवाब! फिर से कोशिश करें।";
+    
+    document.getElementById("result").style.color="#ff6b6b";
+}
+</script>
+
+</body>
+  </html>
