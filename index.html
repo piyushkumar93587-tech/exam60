@@ -498,46 +498,54 @@ HTML
             window.scrollTo(0, 0);
         }
 
-        // Chat Demo Logic
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
+        // // Chat Demo Logic
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+}
 
-        function sendMessage() {
-            const inputField = document.getElementById('userInput');
-            const messageText = inputField.value.trim();
-            const chatBox = document.getElementById('chatBox');
+function sendMessage() {
+    const inputField = document.getElementById('userInput');
+    const messageText = inputField.value.trim();
+    const chatBox = document.getElementById('chatBox');
 
-            if (messageText !== '') {
-                // Add User Message
-                const userMsgDiv = document.createElement('div');
-                userMsgDiv.className = 'message user';
-                userMsgDiv.textContent = messageText;
-                chatBox.appendChild(userMsgDiv);
+    if (messageText !== '') {
+        // Add User Message
+        const userMsgDiv = document.createElement('div');
+        userMsgDiv.className = 'message user';
+        userMsgDiv.textContent = messageText;
+        chatBox.appendChild(userMsgDiv);
 
-                inputField.value = '';
-                chatBox.scrollTop = chatBox.scrollHeight;
+        inputField.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-                // Simulate AI API Response
-                setTimeout(() => {
-                    const aiMsgDiv = document.createElement('div');
-                    aiMsgDiv.className = 'message ai';
-                    
-                    // Simple demo responses
-                    const responses = [
-                        "I am processing your request through the PIYUSH AI neural network.",
-                        "That's an interesting perspective. Let me analyze it.",
-                        "As a smart AI, I can help you complete this task quickly.",
-                        "API Connection pending... Demo mode active. Your message was: " + messageText
-                    ];
-                    
-                    aiMsgDiv.textContent = responses[Math.floor(Math.random() * responses.length)];
-                    chatBox.appendChild(aiMsgDiv);
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                }, 1000);
-            }
+        // असली Gemini AI चालू करने का कोड
+        const apiKey = "AQ.Ab8RN6KS_tIIfHcCx7Kd3AYTWOqqovP4tmBbynLRxc8zGhlZcQ"; 
+        const url = `https://googleapis.com{apiKey}`;
+
+        const aiMsgDiv = document.createElement('div');
+        aiMsgDiv.className = 'message ai';
+        aiMsgDiv.textContent = "PIYUSH AI सोच रहा है...";
+        chatBox.appendChild(aiMsgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents: [{ parts: [{ text: messageText }] }] })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const aiResponse = data.candidates.content.parts.text;
+            aiMsgDiv.textContent = aiResponse;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            aiMsgDiv.textContent = "Error: API कनेक्ट नहीं हो पाई।";
+        });
+    }
         }
         // Image Upload Preview Logic
         function previewFile() {
