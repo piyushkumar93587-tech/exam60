@@ -497,8 +497,7 @@ HTML
             // Scroll to top
             window.scrollTo(0, 0);
         }
-
-        // // Chat Demo Logic
+// // Chat Demo Logic
 function handleKeyPress(event) {
     if (event.key === 'Enter') {
         sendMessage();
@@ -520,7 +519,7 @@ function sendMessage() {
         inputField.value = '';
         chatBox.scrollTop = chatBox.scrollHeight;
 
-        // असली Gemini AI चालू करने का कोड
+        // असली Gemini AI चालू करने का कोड (सही URL के साथ)
         const apiKey = "AQ.Ab8RN6KS_tIIfHcCx7Kd3AYTWOqqovP4tmBbynLRxc8zGhlZcQ"; 
         const url = `https://googleapis.com{apiKey}`;
 
@@ -537,7 +536,7 @@ function sendMessage() {
         })
         .then(response => response.json())
         .then(data => {
-            const aiResponse = data.candidates.content.parts.text;
+            const aiResponse = data.candidates[0].content.parts[0].text;
             aiMsgDiv.textContent = aiResponse;
             chatBox.scrollTop = chatBox.scrollHeight;
         })
@@ -545,7 +544,6 @@ function sendMessage() {
             console.error("Error:", error);
             aiMsgDiv.textContent = "Error: API कनेक्ट नहीं हो पाई।";
         });
-    }
         }
         // Image Upload Preview Logic
         function previewFile() {
