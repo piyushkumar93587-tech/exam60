@@ -1,1 +1,148 @@
 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>लोकल शॉप्स और ऑफर्स | Local Deals App</title>
+    <!-- Tailwind CSS for Beautiful Styling -->
+    <script src="https://jsdelivr.net"></script>
+    <!-- Google Font for Clean Text -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen pb-12">
+
+    <!-- App Header / Top Bar -->
+    <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-md sticky top-0 z-50 rounded-b-2xl">
+        <div class="max-w-md mx-auto px-4 py-4 text-center">
+            <h1 class="text-2xl font-bold tracking-wide">📍 MyLocal Deals</h1>
+            <p class="text-xs text-blue-100 mt-1">आपके शहर की दुकानें और बेहतरीन ऑफर्स</p>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper (Mobile View Optimized) -->
+    <main class="max-w-md mx-auto px-4 mt-4">
+
+        <!-- Search Bar Component -->
+        <div class="bg-white p-3 rounded-xl shadow-xs mb-6">
+            <div class="relative">
+                <input type="text" id="searchInput" onkeyup="searchShops()" placeholder="दुकान या सामान का नाम खोजें (उदा. कपड़ा, मोबाइल)..." 
+                    class="w-full pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-hidden focus:border-blue-500 transition-colors">
+                <span class="absolute right-3 top-3 text-gray-400 text-sm">🔍</span>
+            </div>
+        </div>
+
+        <!-- Section: Today's Super Offers -->
+        <section class="mb-6">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-lg font-bold text-gray-800 flex items-center gap-1">🔥 आज के धमाकेदार ऑफर्स</h2>
+                <span class="text-xs font-semibold bg-red-100 text-red-600 px-2 py-0.5 rounded-full animate-pulse">LIVE</span>
+            </div>
+
+            <!-- Offers Horizontal Scroll -->
+            <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                
+                <!-- Offer Card 1 -->
+                <div class="min-w-[240px] bg-gradient-to-br from-amber-500 to-orange-600 text-white p-4 rounded-xl shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="bg-white/20 text-[10px] uppercase font-bold px-2 py-0.5 rounded-sm">कपड़े की दुकान</span>
+                        <h3 class="font-bold text-lg mt-1">फ्लैट 30% की छूट</h3>
+                        <p class="text-xs text-amber-100 mt-1">सभी जीन्स और शर्ट्स पर</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-white/20 flex justify-between items-center text-xs">
+                        <span class="font-semibold">🛍️ न्यू फैशन मॉल</span>
+                        <span class="bg-white text-orange-600 px-2 py-0.5 rounded-sm font-bold">सीमित समय</span>
+                    </div>
+                </div>
+
+                <!-- Offer Card 2 -->
+                <div class="min-w-[240px] bg-gradient-to-br from-emerald-500 to-teal-600 text-white p-4 rounded-xl shadow-sm flex flex-col justify-between">
+                    <div>
+                        <span class="bg-white/20 text-[10px] uppercase font-bold px-2 py-0.5 rounded-sm">मोबाइल स्टोर</span>
+                        <h3 class="font-bold text-lg mt-1">मुफ़्त टेम्पर्ड ग्लास</h3>
+                        <p class="text-xs text-emerald-100 mt-1">किसी भी मोबाइल रिपेयरिंग पर</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-white/20 flex justify-between items-center text-xs">
+                        <span class="font-semibold">📱 वर्मा इलेक्ट्रॉनिक्स</span>
+                        <span class="bg-white text-emerald-600 px-2 py-0.5 rounded-sm font-bold">आज ही आएं</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section: Verified Shop List -->
+        <section>
+            <h2 class="text-lg font-bold text-gray-800 mb-3">🏪 हमारे शहर की खास दुकानें</h2>
+            
+            <!-- Container for shop list cards -->
+            <div id="shopList" class="space-y-4">
+                
+                <!-- Shop 1 -->
+                <div class="shop-card bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-start justify-between gap-3 transition-transform active:scale-98">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="shop-name font-bold text-gray-800">न्यू फैशन मॉल</h3>
+                            <span class="text-[10px] bg-blue-50 text-blue-600 font-semibold px-2 py-0.5 rounded-sm tag">कपड़ा</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">📍 मेन मार्केट, गांधी चौक के पास</p>
+                        <p class="text-xs text-green-600 font-medium mt-1">🎁 ऑफर: सभी जीन्स पर 30% डिस्काउंट</p>
+                    </div>
+                    <a href="tel:+919876543210" class="bg-blue-50 text-blue-600 p-2.5 rounded-full hover:bg-blue-100 text-sm font-bold shadow-xs">📞</a>
+                </div>
+
+                <!-- Shop 2 -->
+                <div class="shop-card bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-start justify-between gap-3 transition-transform active:scale-98">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="shop-name font-bold text-gray-800">वर्मा इलेक्ट्रॉनिक्स</h3>
+                            <span class="text-[10px] bg-purple-50 text-purple-600 font-semibold px-2 py-0.5 rounded-sm tag">मोबाइल</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">📍 स्टेशन रोड, सिनेमा हॉल के सामने</p>
+                        <p class="text-xs text-green-600 font-medium mt-1">🎁 ऑफर: मोबाइल रिपेयर पर टेम्पर्ड ग्लास फ्री</p>
+                    </div>
+                    <a href="tel:+919876543211" class="bg-blue-50 text-blue-600 p-2.5 rounded-full hover:bg-blue-100 text-sm font-bold shadow-xs">📞</a>
+                </div>
+
+                <!-- Shop 3 -->
+                <div class="shop-card bg-white p-4 rounded-xl shadow-xs border border-gray-100 flex items-start justify-between gap-3 transition-transform active:scale-98">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2">
+                            <h3 class="shop-name font-bold text-gray-800">गुप्ता जनरल स्टोर</h3>
+                            <span class="text-[10px] bg-amber-50 text-amber-600 font-semibold px-2 py-0.5 rounded-sm tag">किराना</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">📍 गली नंबर 3, सुभाष नगर</p>
+                        <p class="text-xs text-gray-500 font-medium mt-1">🎁 ऑफर: ₹2000 की खरीद पर होम डिलीवरी फ्री</p>
+                    </div>
+                    <a href="tel:+919876543212" class="bg-blue-50 text-blue-600 p-2.5 rounded-full hover:bg-blue-100 text-sm font-bold shadow-xs">📞</a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Simple Search System JavaScript Logic -->
+    <script>
+        function searchShops() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let shopCards = document.getElementsByClassName('shop-card');
+
+            for (let i = 0; i < shopCards.length; i++) {
+                let shopName = shopCards[i].getElementsByClassName('shop-name')[0].innerText.toLowerCase();
+                let tag = shopCards[i].getElementsByClassName('tag')[0].innerText.toLowerCase();
+                
+                if (shopName.includes(input) || tag.includes(input)) {
+                    shopCards[i].style.display = "flex";
+                } else {
+                    shopCards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
