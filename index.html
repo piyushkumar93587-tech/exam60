@@ -1,1 +1,262 @@
+// main.dart
+import 'package:flutter/material.dart';
+import 'quiz_data.dart';
 
+void main() {
+  runApp(const LuxuryQuizApp());
+}
+
+class LuxuryQuizApp extends StatelessWidget {
+  const LuxuryQuizApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: '10th Board Premium Quiz',
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xff0F0F1E), // Deep Space Blue Background
+        primaryColor: const Color(0xff6C63FF),
+        colorScheme: const ColorScheme.dark(
+          primary: Color(0xff6C63FF),
+          secondary: Color(0xff00F2FE),
+        ),
+        cardTheme: const CardTheme(
+          color: Color(0xff1D1D35),
+          elevation: 8,
+        ),
+      ),
+      home: const DashboardScreen(),
+    );
+  }
+}
+
+// 1. DASHBOARD SCREEN (Subject Selection)
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('👑 CLASS 10th PREMIUM QUIZ', style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2)),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Apna Subject Chunein", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400, color: Colors.grey)),
+            const SizedBox(height: 20),
+            // Science Card
+            _buildSubjectCard(
+              context, 
+              title: "SCIENCE (Vigyan)", 
+              books: QuizData.scienceQuestions.keys.toList(), 
+              fullData: QuizData.scienceQuestions,
+              gradientColors: [const Color(0xffFF416C), const Color(0xffFF4B2B)]
+            ),
+            const SizedBox(height: 20),
+            // Social Science Card
+            _buildSubjectCard(
+              context, 
+              title: "SOCIAL SCIENCE (Samajik Vigyan)", 
+              books: QuizData.socialScienceQuestions.keys.toList(), 
+              fullData: QuizData.socialScienceQuestions,
+              gradientColors: [const Color(0xff00F2FE), const Color(0xff4FACFE)]
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSubjectCard(BuildContext context, {required String title, required List<String> books, required Map<String, List<Question>> fullData, required List<Color> gradientColors}) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(colors: gradientColors, begin: Alignment.topLeft, end: Alignment.bottomRight),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [BoxShadow(color: gradientColors[0].withOpacity(0.4), blurRadius: 15, offset: const Offset(0, 8))]
+      ),
+      child: Card(
+        margin: EdgeInsets.zero,
+        color: Colors.transparent,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        child: ExpansionTile(
+          title: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+          subtitle: Text("${books.length} Kitabein | Har book me 20 MCQs", style: const TextStyle(color: Colors.white70)),
+          iconColor: Colors.white,
+          collapsedIconColor: Colors.white,
+          children: books.map((bookName) {
+            return ListTile(
+              title: Text("📖 $bookName", style: const TextStyle(color: Colors.white, fontSize: 16)),
+              trailing: const Icon(Icons.play_arrow_rounded, color: Colors.white),
+              onTap: () {
+                // Shuffle logic to select 10 random questions out of 20
+                List<Question> total20 = List.from(fullData[bookName]!);
+                total20.shuffle(); 
+                List<Question> random10 = total20.take(10).toList();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QuizPlayScreen(bookName: bookName, questions: random10)),
+                );
+              },
+            );
+          }).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+// 2. QUIZ PLAY SCREEN (Heavy Premium Interface)
+class QuizPlayScreen extends StatefulWidget {
+  final String bookName;
+  final List<Question> questions;
+  const QuizPlayScreen({Key? key, required this.bookName, required this.questions}) : super(key: key);
+
+  @override
+  State<QuizPlayScreen> createState() => _QuizPlayScreenState();
+}
+
+class _QuizPlayScreenState extends State<QuizPlayScreen> {
+  int currentQuestionIndex = 0;
+  int score = 0;
+  int? selectedAnswerIndex;
+  bool isAnswered = false;
+
+  void checkAnswer(int selectedIndex) {
+    if (isAnswered) return;
+    setState(() {
+      selectedAnswerIndex = selectedIndex;
+      isAnswered = true;
+      if (selectedIndex == widget.questions[currentQuestionIndex].correctAnswerIndex) {
+        score++;
+      }
+    });
+  }
+
+  void nextQuestion() {
+    if (currentQuestionIndex < widget.questions.length - 1) {
+      setState(() {
+        currentQuestionIndex++;
+        selectedAnswerIndex = null;
+        isAnswered = false;
+      });
+    } else {
+      // Show Final Luxury Results Page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ResultScreen(score: score, total: widget.questions.length)),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var currentQuestion = widget.questions[currentQuestionIndex];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.bookName, style: const TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Progress Indicator
+            Text("Prashn: ${currentQuestionIndex + 1}/${widget.questions.length}", style: const TextStyle(fontSize: 16, color: Colors.grey)),
+            const SizedBox(height: 10),
+            LinearProgressIndicator(
+              value: (currentQuestionIndex + 1) / widget.questions.length,
+              backgroundColor: const Color(0xff1D1D35),
+              color: const Color(0xff6C63FF),
+              minHeight: 8,
+            ),
+            const SizedBox(height: 30),
+            // Question Card Layout
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: const Color(0xff1D1D35),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: const Color(0xff6C63FF).withOpacity(0.3)),
+              ),
+              child: Text(currentQuestion.questionText, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white)),
+            ),
+            const SizedBox(height: 30),
+            // Luxury Options Builder
+            Expanded(
+              child: ListView.builder(
+                itemCount: currentQuestion.options.length,
+                itemBuilder: (context, index) {
+                  Color optionColor = const Color(0xff1D1D35);
+                  if (isAnswered) {
+                    if (index == currentQuestion.correctAnswerIndex) {
+                      optionColor = Colors.green.withOpacity(0.3); // Green for correct
+                    } else if (index == selectedAnswerIndex) {
+                      optionColor = Colors.red.withOpacity(0.3); // Red for wrong
+                    }
+                  }
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 15.0),
+                    child: GestureDetector(
+                      onTap: () => checkAnswer(index),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                        decoration: BoxDecoration(
+                          color: optionColor,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: isAnswered && index == currentQuestion.correctAnswerIndex 
+                                ? Colors.green 
+                                : const Color(0xff6C63FF).withOpacity(0.2)
+                          ),
+                        ),
+                        child: Text(currentQuestion.options[index], style: const TextStyle(fontSize: 16, color: Colors.white)),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            // Next Button
+            ElevatedButton(
+              onPressed: isAnswered ? nextQuestion : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xff6C63FF),
+                disabledBackgroundColor: Colors.grey.withOpacity(0.2),
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              ),
+              child: Text(currentQuestionIndex == widget.questions.length - 1 ? "Result Dekhein" : "Agla Prashn ➡️", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// 3. FINAL RESULT SCREEN (Premium Score Card)
+class ResultScreen extends StatelessWidget {
+  final int score;
+  final int total;
+  const ResultScreen({Key? key, required this.score, required this.total}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double percentage = (score / total) * 100;
+    return Scaffold(
+      body: Center(
+        child: Padding(
+      
